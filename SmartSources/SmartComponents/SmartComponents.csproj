@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2A47164C-3C51-44AC-B13A-AB48B5585908}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Smart</RootNamespace>
+    <AssemblyName>SmartComponents</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="UnityEngine">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>C:\Program Files\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\CharacterJointHelper.cs" />
+    <Compile Include="Helpers\ConfigurableJointHelper.cs" />
+    <Compile Include="Helpers\ConstraintDOFHelper.cs" />
+    <Compile Include="Helpers\FieldValueHelper.cs" />
+    <Compile Include="Helpers\PropertyValueHelper.cs" />
+    <Compile Include="Helpers\MovementHelper.cs" />
+    <Compile Include="Helpers\TypeConverterHelper.cs" />
+    <Compile Include="Helpers\FixedJointHelper.cs" />
+    <Compile Include="Helpers\AnimatorHelper.cs" />
+    <Compile Include="Helpers\FloatEventHelper.cs" />
+    <Compile Include="Helpers\HingeJointHelper.cs" />
+    <Compile Include="Helpers\JointHelper.cs" />
+    <Compile Include="Helpers\MathHelper.cs" />
+    <Compile Include="Helpers\ParticlesHelper.cs" />
+    <Compile Include="Helpers\RandomHelper.cs" />
+    <Compile Include="Helpers\RuntimeDebugHelper.cs" />
+    <Compile Include="Helpers\RedirectableHelper.cs" />
+    <Compile Include="Helpers\RotationHelper.cs" />
+    <Compile Include="Helpers\ColorLerpHelper.cs" />
+    <Compile Include="Helpers\FloatLerpHelper.cs" />
+    <Compile Include="Helpers\FollowCameraHelper.cs" />
+    <Compile Include="Helpers\SelectIntervalHelper.cs" />
+    <Compile Include="Helpers\SpringJointHelper.cs" />
+    <Compile Include="Helpers\TemplateHelper.cs" />
+    <Compile Include="Helpers\CollisionTriggerHelper.cs" />
+    <Compile Include="Helpers\CommandsHelper.cs" />
+    <Compile Include="Helpers\LightLODHelper.cs" />
+    <Compile Include="Helpers\ScrollingUVHelper.cs" />
+    <Compile Include="Helpers\SelectOptionHelper.cs" />
+    <Compile Include="Helpers\CountConditionHelper.cs" />
+    <Compile Include="Helpers\IntervalEventHelper.cs" />
+    <Compile Include="Helpers\DelayHelper.cs" />
+    <Compile Include="Helpers\DontDestroyHelper.cs" />
+    <Compile Include="Helpers\EventsHelper.cs" />
+    <Compile Include="Helpers\InputFieldHelper.cs" />
+    <Compile Include="Helpers\JointBreakHelper.cs" />
+    <Compile Include="Helpers\PopupHelper.cs" />
+    <Compile Include="Helpers\MaterialHelper.cs" />
+    <Compile Include="Helpers\ToggleHelper.cs" />
+    <Compile Include="Helpers\UIHelper.cs" />
+    <Compile Include="Helpers\UIMaterialHelper.cs" />
+    <Compile Include="Managers\CanvasManager.cs" />
+    <Compile Include="Managers\CoroutinesManager.cs" />
+    <Compile Include="Managers\SoundsManager.cs" />
+    <Compile Include="Managers\UpdatesManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateMachine\EventsStateMachineBehaviour.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartCore\SmartCore.csproj">
+      <Project>{d9f500a7-0684-4d20-84a1-41535f291169}</Project>
+      <Name>SmartCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y "$(ProjectDir)$(OutDir)$(TargetFileName)" "$(ProjectDir)..\..\Smart\Components\"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

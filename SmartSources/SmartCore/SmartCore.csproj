@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D9F500A7-0684-4D20-84A1-41535F291169}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Smart</RootNamespace>
+    <AssemblyName>SmartCore</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>C:\Program Files\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Compression\LZ4\LZ4Codec.cs" />
+    <Compile Include="Compression\LZ4\LZ4s\LZ4Codec.cs" />
+    <Compile Include="Compression\LZ4\LZ4s\LZ4Codec.Safe.cs" />
+    <Compile Include="Compression\LZ4\LZ4s\LZ4Codec.Safe32.Dirty.cs" />
+    <Compile Include="Compression\LZ4\LZ4s\LZ4Codec.Safe32HC.Dirty.cs" />
+    <Compile Include="Compression\LZ4\LZ4s\LZ4Codec.Safe64.Dirty.cs" />
+    <Compile Include="Compression\LZ4\LZ4s\LZ4Codec.Safe64HC.Dirty.cs" />
+    <Compile Include="Compression\LZ4\Services\ILZ4Service.cs" />
+    <Compile Include="Compression\LZ4\Services\Safe32LZ4Service.cs" />
+    <Compile Include="Compression\LZ4\Services\Safe64LZ4Service.cs" />
+    <Compile Include="Compression\StreamCompressor.cs" />
+    <Compile Include="Evaluator\Context.cs" />
+    <Compile Include="Evaluator\Expression.cs" />
+    <Compile Include="Evaluator\Function.cs" />
+    <Compile Include="Evaluator\Functions.cs" />
+    <Compile Include="Evaluator\Parser.cs" />
+    <Compile Include="Evaluator\ParseTree.cs" />
+    <Compile Include="Evaluator\ParseTreeEvaluator.cs" />
+    <Compile Include="Evaluator\Scanner.cs" />
+    <Compile Include="Evaluator\Variables.cs" />
+    <Compile Include="Extensions\MeshFilterExtensions.cs" />
+    <Compile Include="Extensions\LinkedListExtensions.cs" />
+    <Compile Include="Extensions\ColorExtensions.cs" />
+    <Compile Include="Extensions\ComponentExtensions.cs" />
+    <Compile Include="Extensions\GameObjectExtensions.cs" />
+    <Compile Include="Extensions\LightExtensions.cs" />
+    <Compile Include="Extensions\PrefabExtensions.cs" />
+    <Compile Include="Extensions\RectExtensions.cs" />
+    <Compile Include="Extensions\ReparentingExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\ReflectionExtensions.cs" />
+    <Compile Include="Extensions\ValueExtensions.cs" />
+    <Compile Include="Extensions\VectorExtensions.cs" />
+    <Compile Include="Types\MetaDataValues\MetaDataColorHDR.cs" />
+    <Compile Include="Types\SmoothFloat.cs" />
+    <Compile Include="Types\UpdateAccumulator.cs" />
+    <Compile Include="Types\MetaData.cs" />
+    <Compile Include="Types\MetaDataValues\MetaDataBoolean.cs" />
+    <Compile Include="Types\MetaDataValues\MetaDataVector3.cs" />
+    <Compile Include="Types\MetaDataValues\MetaDataVector2.cs" />
+    <Compile Include="Types\MetaDataValues\MetaDataFloat.cs" />
+    <Compile Include="Types\MetaDataValues\MetaDataColor.cs" />
+    <Compile Include="Types\MetaDataValues\MetaDataString.cs" />
+    <Compile Include="Types\MetaDataValues\MetaDataInteger.cs" />
+    <Compile Include="Types\MetaDataValues\MetaDataNull.cs" />
+    <Compile Include="Types\MetaDataValues\MetaDataValue.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Extensions\ArrayExtensions.cs" />
+    <Compile Include="Types\PendingCommands.cs" />
+    <Compile Include="Types\BooleanState.cs" />
+    <Compile Include="Types\TinyCyclicValues.cs" />
+    <Compile Include="Types\TinyCyclicCache.cs" />
+    <Compile Include="Types\ValueCache.cs" />
+    <Compile Include="Types\SimleCache.cs" />
+    <Compile Include="Types\QueryCache.cs" />
+    <Compile Include="Types\SpatialNodes.cs" />
+    <Compile Include="Utils\CommandLine.cs" />
+    <Compile Include="Utils\CoreSettings.cs" />
+    <Compile Include="Utils\FileUtils.cs" />
+    <Compile Include="Utils\Interpolation.cs" />
+    <Compile Include="Utils\SmartLog.cs" />
+    <Compile Include="Utils\Serialization.cs" />
+    <Compile Include="Utils\UIDGen.cs" />
+    <Compile Include="Utils\SysInfo.cs" />
+    <Compile Include="Utils\Size.cs" />
+    <Compile Include="Types\EventTypes.cs" />
+    <Compile Include="Types\HSBColor.cs" />
+    <Compile Include="Types\Attributes.cs" />
+    <Compile Include="Types\Struct.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y "$(ProjectDir)$(OutDir)$(TargetFileName)" "$(ProjectDir)..\..\Smart\Core\"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

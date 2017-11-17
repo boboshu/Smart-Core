@@ -4,9 +4,16 @@ using UnityEngine;
 
 namespace Smart.Types.MetaDataValues
 {
-    internal sealed class MetaDataColor : MetaDataValue<Color>
+    internal sealed class MetaDataColor : MetaDataValue
     {
         //--------------------------------------------------------------------------------------------------------------------------
+
+        public Color value;
+
+        public override byte GetTypeId()
+        {
+            return MetaData.ID_COLOR;
+        }
 
         internal override void WriteData(BinaryWriter bw)
         {

@@ -43,7 +43,7 @@ namespace Smart.Extensions
         public static void Reparent(this GameObject go, GameObject newParent, ReparentingMode mode = ReparentingMode.ResetLocal)
         {
             var trg = go.transform;
-            var prnt = (newParent == null) ? null : newParent.transform;
+            var prnt = newParent == null ? null : newParent.transform;
             switch (mode)
             {
                 case ReparentingMode.KeepWorld: trg.SetParent(prnt, true); break;
@@ -59,7 +59,7 @@ namespace Smart.Extensions
         public static void Reparent(this Component go, Component newParent, ReparentingMode mode = ReparentingMode.ResetLocal)
         {
             var trg = go.transform;
-            var prnt = (newParent == null) ? null : newParent.transform;
+            var prnt = newParent == null ? null : newParent.transform;
             switch (mode)
             {
                 case ReparentingMode.KeepWorld: trg.SetParent(prnt, true); break;
@@ -77,7 +77,7 @@ namespace Smart.Extensions
         public static void Reparent(this GameObject go, Component newParent, ReparentingMode mode = ReparentingMode.ResetLocal)
         {
             var trg = go.transform;
-            var prnt = (newParent == null) ? null : newParent.transform;
+            var prnt = newParent == null ? null : newParent.transform;
             switch (mode)
             {
                 case ReparentingMode.KeepWorld: trg.SetParent(prnt, true); break;
@@ -93,7 +93,7 @@ namespace Smart.Extensions
         public static void Reparent(this Component go, GameObject newParent, ReparentingMode mode = ReparentingMode.ResetLocal)
         {
             var trg = go.transform;
-            var prnt = (newParent == null) ? null : newParent.transform;
+            var prnt = newParent == null ? null : newParent.transform;
             switch (mode)
             {
                 case ReparentingMode.KeepWorld: trg.SetParent(prnt, true); break;

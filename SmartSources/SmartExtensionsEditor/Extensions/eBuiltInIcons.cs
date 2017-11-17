@@ -92,15 +92,24 @@ namespace Smart.Extensions
                     if (Event.current.control) // save texture to file
                     {
                         // save 16x16 mipmap if shift pressed
-                        var w = (Event.current.shift) ? 16 : tex.width;
-                        var h = (Event.current.shift) ? 16 : tex.height;
+                        var w = Event.current.shift ? 16 : tex.width;
+                        var h = Event.current.shift ? 16 : tex.height;
                         var rt = new RenderTexture(w, h, 32);
                         var nt = new Texture2D(w, h, TextureFormat.ARGB32, false);
                         Graphics.Blit(tex, rt);
                         RenderTexture.active = rt;
                         nt.ReadPixels(new Rect(0, 0, w, h), 0, 0);
                         RenderTexture.active = null;
-                        File.WriteAllBytes(@"C:\UnityBuiltInIcon.png", nt.EncodeToPNG());
+
+                        var pngBytes = nt.EncodeToPNG();
+                        try
+                        {
+                            File.WriteAllBytes(@"C:\UnityBuiltInIcon.png", pngBytes);
+                        }
+                        catch
+                        {
+                            File.WriteAllBytes(@"C:\1\UnityBuiltInIcon.png", pngBytes);
+                        }                        
                     }
                 }
                 else
@@ -181,6 +190,7 @@ namespace Smart.Extensions
             _pathList.Add("icons/animation.play.png");
             _pathList.Add("icons/animation.prevkey.png");
             _pathList.Add("icons/animation.record.png");
+            _pathList.Add("icons/animation.sequencerlink.png");
             _pathList.Add("icons/animationanimated.png");
             _pathList.Add("icons/animationdopesheetkeyframe.png");
             _pathList.Add("icons/animationkeyframe.png");
@@ -239,6 +249,8 @@ namespace Smart.Extensions
             _pathList.Add("icons/buildsettings.broadcom.png");
             _pathList.Add("icons/buildsettings.editor.png");
             _pathList.Add("icons/buildsettings.editor.small.png");
+            _pathList.Add("icons/buildsettings.facebook.png");
+            _pathList.Add("icons/buildsettings.facebook.small.png");
             _pathList.Add("icons/buildsettings.flashplayer.png");
             _pathList.Add("icons/buildsettings.flashplayer.small.png");
             _pathList.Add("icons/buildsettings.iphone.png");
@@ -262,6 +274,8 @@ namespace Smart.Extensions
             _pathList.Add("icons/buildsettings.standalonegles20emu.small.png");
             _pathList.Add("icons/buildsettings.standaloneglesemu.png");
             _pathList.Add("icons/buildsettings.standaloneglesemu.small.png");
+            _pathList.Add("icons/buildsettings.switch.png");
+            _pathList.Add("icons/buildsettings.switch.small.png");
             _pathList.Add("icons/buildsettings.tizen.png");
             _pathList.Add("icons/buildsettings.tizen.small.png");
             _pathList.Add("icons/buildsettings.tvos.png");
@@ -325,6 +339,7 @@ namespace Smart.Extensions
             _pathList.Add("icons/d_animation.play.png");
             _pathList.Add("icons/d_animation.prevkey.png");
             _pathList.Add("icons/d_animation.record.png");
+            _pathList.Add("icons/d_animation.sequencerlink.png");
             _pathList.Add("icons/d_animationanimated.png");
             _pathList.Add("icons/d_animationkeyframe.png");
             _pathList.Add("icons/d_animationnocurve.png");
@@ -496,6 +511,7 @@ namespace Smart.Extensions
             _pathList.Add("icons/d_profiler.prevframe.png");
             _pathList.Add("icons/d_profiler.record.png");
             _pathList.Add("icons/d_profiler.rendering.png");
+            _pathList.Add("icons/d_profiler.video.png");
             _pathList.Add("icons/d_profilercolumn.warningcount.png");
             _pathList.Add("icons/d_project.png");
             _pathList.Add("icons/d_recttool on.png");
@@ -607,6 +623,7 @@ namespace Smart.Extensions
             _pathList.Add("icons/d_unityeditor.animationwindow.png");
             _pathList.Add("icons/d_unityeditor.consolewindow.png");
             _pathList.Add("icons/d_unityeditor.debuginspectorwindow.png");
+            _pathList.Add("icons/d_unityeditor.finddependencies.png");
             _pathList.Add("icons/d_unityeditor.gameview.png");
             _pathList.Add("icons/d_unityeditor.hierarchywindow.png");
             _pathList.Add("icons/d_unityeditor.inspectorwindow.png");
@@ -865,6 +882,16 @@ namespace Smart.Extensions
             _pathList.Add("icons/processed/chorusfilter icon.asset");
             _pathList.Add("icons/processed/circlecollider2d icon.asset");
             _pathList.Add("icons/processed/cloth icon.asset");
+            _pathList.Add("icons/processed/collabchanges icon.asset");
+            _pathList.Add("icons/processed/collabchangesconflict icon.asset");
+            _pathList.Add("icons/processed/collabchangesdeleted icon.asset");
+            _pathList.Add("icons/processed/collabconflict icon.asset");
+            _pathList.Add("icons/processed/collabcreate icon.asset");
+            _pathList.Add("icons/processed/collabdeleted icon.asset");
+            _pathList.Add("icons/processed/collabedit icon.asset");
+            _pathList.Add("icons/processed/collabexclude icon.asset");
+            _pathList.Add("icons/processed/collabmoved icon.asset");
+            _pathList.Add("icons/processed/compositecollider2d icon.asset");
             _pathList.Add("icons/processed/computeshader icon.asset");
             _pathList.Add("icons/processed/configurablejoint icon.asset");
             _pathList.Add("icons/processed/constantforce icon.asset");
@@ -875,11 +902,21 @@ namespace Smart.Extensions
             _pathList.Add("icons/processed/d_canvas icon.asset");
             _pathList.Add("icons/processed/d_canvasgroup icon.asset");
             _pathList.Add("icons/processed/d_canvasrenderer icon.asset");
+            _pathList.Add("icons/processed/d_collabchanges icon.asset");
+            _pathList.Add("icons/processed/d_collabchangesconflict icon.asset");
+            _pathList.Add("icons/processed/d_collabchangesdeleted icon.asset");
+            _pathList.Add("icons/processed/d_collabconflict icon.asset");
+            _pathList.Add("icons/processed/d_collabcreate icon.asset");
+            _pathList.Add("icons/processed/d_collabdeleted icon.asset");
+            _pathList.Add("icons/processed/d_collabedit icon.asset");
+            _pathList.Add("icons/processed/d_collabexclude icon.asset");
+            _pathList.Add("icons/processed/d_collabmoved icon.asset");
             _pathList.Add("icons/processed/d_gridlayoutgroup icon.asset");
             _pathList.Add("icons/processed/d_horizontallayoutgroup icon.asset");
             _pathList.Add("icons/processed/d_lightprobeproxyvolume icon.asset");
             _pathList.Add("icons/processed/d_particlesystem icon.asset");
             _pathList.Add("icons/processed/d_recttransform icon.asset");
+            _pathList.Add("icons/processed/d_sortinggroup icon.asset");
             _pathList.Add("icons/processed/d_verticallayoutgroup icon.asset");
             _pathList.Add("icons/processed/defaultasset icon.asset");
             _pathList.Add("icons/processed/defaultslate icon.asset");
@@ -982,6 +1019,7 @@ namespace Smart.Extensions
             _pathList.Add("icons/processed/skinnedmeshrenderer icon.asset");
             _pathList.Add("icons/processed/skybox icon.asset");
             _pathList.Add("icons/processed/sliderjoint2d icon.asset");
+            _pathList.Add("icons/processed/sortinggroup icon.asset");
             _pathList.Add("icons/processed/speedtreemodel icon.asset");
             _pathList.Add("icons/processed/spherecollider icon.asset");
             _pathList.Add("icons/processed/spotlight gizmo.asset");
@@ -1086,6 +1124,9 @@ namespace Smart.Extensions
             _pathList.Add("icons/processed/unityengine/ui/togglegroup icon.asset");
             _pathList.Add("icons/processed/unityengine/ui/verticallayoutgroup icon.asset");
             _pathList.Add("icons/processed/verticallayoutgroup icon.asset");
+            _pathList.Add("icons/processed/videoclip icon.asset");
+            _pathList.Add("icons/processed/videoeffect icon.asset");
+            _pathList.Add("icons/processed/videoplayer icon.asset");
             _pathList.Add("icons/processed/wheelcollider icon.asset");
             _pathList.Add("icons/processed/wheeljoint2d icon.asset");
             _pathList.Add("icons/processed/windzone gizmo.asset");
@@ -1106,6 +1147,7 @@ namespace Smart.Extensions
             _pathList.Add("icons/profiler.prevframe.png");
             _pathList.Add("icons/profiler.record.png");
             _pathList.Add("icons/profiler.rendering.png");
+            _pathList.Add("icons/profiler.video.png");
             _pathList.Add("icons/profilercolumn.warningcount.png");
             _pathList.Add("icons/project.png");
             _pathList.Add("icons/recttool on.png");
@@ -1280,6 +1322,7 @@ namespace Smart.Extensions
             _pathList.Add("icons/unityeditor.asmainwindow.png");
             _pathList.Add("icons/unityeditor.consolewindow.png");
             _pathList.Add("icons/unityeditor.debuginspectorwindow.png");
+            _pathList.Add("icons/unityeditor.finddependencies.png");
             _pathList.Add("icons/unityeditor.gameview.png");
             _pathList.Add("icons/unityeditor.graphs.animatorcontrollertool.png");
             _pathList.Add("icons/unityeditor.hierarchywindow.png");

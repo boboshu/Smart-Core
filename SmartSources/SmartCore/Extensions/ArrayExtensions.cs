@@ -31,6 +31,46 @@ namespace Smart.Extensions
 
         //--------------------------------------------------------------------------------------------------------------------------
 
+        public static T[] AddAfter<T>(this T[] array, T value, T afterValue)
+        {
+            var new_array = new T[array.Length + 1];
+            var j = 0;
+            var elementNotFound = true;
+            for (var i = 0; i < array.Length; i++)
+            {
+                var vi = array[i];
+                new_array[j++] = vi;
+                if (elementNotFound && ValueExtensions.Equals(vi, afterValue))
+                {
+                    new_array[j++] = value;
+                    elementNotFound = false;
+                }
+            }
+            if (elementNotFound) new_array[array.Length] = value;
+            return new_array;
+        }
+
+        public static T[] AddBefore<T>(this T[] array, T value, T afterValue)
+        {
+            var new_array = new T[array.Length + 1];
+            var j = 0;
+            var elementNotFound = true;
+            for (var i = 0; i < array.Length; i++)
+            {
+                var vi = array[i];
+                if (elementNotFound && ValueExtensions.Equals(vi, afterValue))
+                {
+                    new_array[j++] = value;
+                    elementNotFound = false;
+                }
+                new_array[j++] = vi;
+            }
+            if (elementNotFound) new_array[array.Length] = value;
+            return new_array;
+        }
+
+        //--------------------------------------------------------------------------------------------------------------------------
+
         public static T[] Add<T>(this T[] array, T value)
         {
             var new_array = new T[array.Length + 1];
@@ -62,7 +102,7 @@ namespace Smart.Extensions
         public static T[] Remove<T>(this T[] array, T value)
         {
             var indx = Array.IndexOf(array, value);
-            return (indx < 0) ? array : Remove(array, indx);
+            return indx < 0 ? array : Remove(array, indx);
         }
 
         public static void Remove<T>(ref T[] array, T value)
@@ -95,6 +135,30 @@ namespace Smart.Extensions
             }
         }
 
+        public static void MoveLast<T>(this T[] array, T value)
+        {
+            var indx = Array.IndexOf(array, value);
+            if (indx < array.Length - 1 && indx >= 0)
+            {
+                var itemValue = array[indx];
+                for (var i = indx; i < array.Length - 1; i++)
+                    array[i] = array[i + 1];
+                array[array.Length - 1] = itemValue;
+            }
+        }
+
+        public static void MoveFirst<T>(this T[] array, T value)
+        {
+            var indx = Array.IndexOf(array, value);
+            if (indx > 0)
+            {
+                var itemValue = array[indx];
+                for (var i = indx; i > 0; i--)
+                    array[i] = array[i - 1];
+                array[0] = itemValue;
+            }
+        }
+
         //--------------------------------------------------------------------------------------------------------------------------
 
         public static bool CanMoveBack<T>(this T[] array, T value)
@@ -103,6 +167,17 @@ namespace Smart.Extensions
         }
 
         public static bool CanMoveForw<T>(this T[] array, T value)
+        {
+            var indx = Array.IndexOf(array, value);
+            return indx < array.Length - 1 && indx >= 0;
+        }
+
+        public static bool CanMoveFirst<T>(this T[] array, T value)
+        {
+            return Array.IndexOf(array, value) > 0;
+        }
+
+        public static bool CanMoveLast<T>(this T[] array, T value)
         {
             var indx = Array.IndexOf(array, value);
             return indx < array.Length - 1 && indx >= 0;

@@ -7,15 +7,16 @@ namespace Smart.Types.MetaDataValues
     {
         //--------------------------------------------------------------------------------------------------------------------------
 
-        public abstract bool IsNull();
-
         public abstract byte GetTypeId();
 
         internal abstract void WriteData(BinaryWriter bw);
 
         internal abstract void ReadData(BinaryReader br);
 
-        public abstract MetaDataValue CreateCopy();
+        public override string ToString()
+        {
+            return AsString();
+        }
 
         //--------------------------------------------------------------------------------------------------------------------------
 
@@ -26,7 +27,7 @@ namespace Smart.Types.MetaDataValues
 
         public virtual float AsFloat()
         {
-            return 0;
+            return 0f;
         }
 
         public virtual string AsString()
@@ -50,6 +51,18 @@ namespace Smart.Types.MetaDataValues
         }
 
         public virtual bool AsBoolean()
+        {
+            return false;
+        }
+
+        //--------------------------------------------------------------------------------------------------------------------------
+
+        public virtual bool IsNull()
+        {
+            return false;
+        }
+
+        public virtual bool IsString()
         {
             return false;
         }

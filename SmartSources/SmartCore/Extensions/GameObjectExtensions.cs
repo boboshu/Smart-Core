@@ -11,6 +11,38 @@ namespace Smart.Extensions
 
         //--------------------------------------------------------------------------------------------------------------------------
 
+        public static T GetComponentInParent<T>(this GameObject go, bool includeInactive) where T : Component
+        {
+            if (!includeInactive) return go.GetComponentInParent<T>();
+
+            var tr = go.transform;
+            while (tr != null)
+            {
+                var cmp = tr.GetComponent<T>();
+                if (cmp) return cmp;
+                tr = tr.parent;
+            }
+
+            return null;
+        }
+
+        public static T GetComponentInParent<T>(this Component goCmp, bool includeInactive) where T : Component
+        {
+            if (!includeInactive) return goCmp.GetComponentInParent<T>();
+
+            var tr = goCmp.transform;
+            while (tr != null)
+            {
+                var cmp = tr.GetComponent<T>();
+                if (cmp) return cmp;
+                tr = tr.parent;
+            }
+
+            return null;
+        }
+
+        //--------------------------------------------------------------------------------------------------------------------------
+
         public static GameObject GetChild(this GameObject go, string name)
         {
             for (var i = go.transform.childCount - 1; i >= 0; i--)
@@ -36,54 +68,97 @@ namespace Smart.Extensions
 
         //--------------------------------------------------------------------------------------------------------------------------
 
-        public static void DestroyChildren(this GameObject go, Func<Transform, bool> condition)
+        public static void DestroyChildren(this GameObject go, Func<Transform, bool> condition, bool immediate = true)
         {
             for (var i = go.transform.childCount - 1; i >= 0; i--)
             {
                 var child = go.transform.GetChild(i);
                 if (condition(child))
-                    Object.DestroyImmediate(child.gameObject);
+                {
+                    if (immediate) Object.DestroyImmediate(child.gameObject);
+                    else Object.Destroy(child.gameObject);
+                }
             }
         }
 
-        public static void DestroyChildren(this Transform cmp, Func<Transform, bool> condition)
+        public static void DestroyChildren(this Transform cmp, Func<Transform, bool> condition, bool immediate = true)
         {
             for (var i = cmp.childCount - 1; i >= 0; i--)
             {
                 var child = cmp.GetChild(i);
                 if (condition(child))
-                    Object.DestroyImmediate(child.gameObject);
+                {
+                    if (immediate) Object.DestroyImmediate(child.gameObject);
+                    else Object.Destroy(child.gameObject);
+                }
             }
         }
 
-        public static void DestroyChildren(this Component cmp, Func<Transform, bool> condition)
+        public static void DestroyChildren(this Component cmp, Func<Transform, bool> condition, bool immediate = true)
         {
             for (var i = cmp.transform.childCount - 1; i >= 0; i--)
             {
                 var child = cmp.transform.GetChild(i);
                 if (condition(child))
-                    Object.DestroyImmediate(child.gameObject);
+                {
+                    if (immediate) Object.DestroyImmediate(child.gameObject);
+                    else Object.Destroy(child.gameObject);
+                }
             }
         }
 
         //------------------------------------------------------------------------------------------------------------------
 
-        public static void DestroyChildren(this GameObject go)
+        public static void DestroyChildren(this GameObject go, bool immediate = true)
         {
-            while (go.transform.childCount > 0)
-                Object.DestroyImmediate(go.transform.GetChild(0).gameObject);
+            for (var i = go.transform.childCount - 1; i >= 0; i--)
+            {
+                var child = go.transform.GetChild(i);
+                if (immediate) Object.DestroyImmediate(child.gameObject);
+                else Object.Destroy(child.gameObject);
+            }
         }
 
-        public static void DestroyChildren(this Transform cmp)
+        public static void DestroyChildren(this Transform cmp, bool immediate = true)
         {
-            while (cmp.childCount > 0)
-                Object.DestroyImmediate(cmp.GetChild(0).gameObject);
+            for (var i = cmp.childCount - 1; i >= 0; i--)
+            {
+                var child = cmp.GetChild(i);
+                if (immediate) Object.DestroyImmediate(child.gameObject);
+                else Object.Destroy(child.gameObject);
+            }
         }
 
-        public static void DestroyChildren(this Component cmp)
+        public static void DestroyChildren(this Component cmp, bool immediate = true)
         {
-            while (cmp.transform.childCount > 0)
-                Object.DestroyImmediate(cmp.transform.GetChild(0).gameObject);
+            for (var i = cmp.transform.childCount - 1; i >= 0; i--)
+            {
+                var child = cmp.transform.GetChild(i);
+                if (immediate) Object.DestroyImmediate(child.gameObject);
+                else Object.Destroy(child.gameObject);
+            }
+        }
+
+        //------------------------------------------------------------------------------------------------------------------
+
+        public static IEnumerable<Transform> GetParents(this Component cmp)
+        {
+            var tr = cmp.transform.parent;
+            while (tr != null)
+            {
+                yield return tr;
+                tr = tr.parent;
+            }                
+        }
+
+        public static IEnumerable<Transform> GetParents(this GameObject go)
+        {
+            var tr = go.transform.parent;
+            while (tr != null)
+            {
+                yield return tr;
+                tr = tr.parent;
+            }                
         }
 
         //------------------------------------------------------------------------------------------------------------------
@@ -247,6 +322,22 @@ namespace Smart.Extensions
 
         //------------------------------------------------------------------------------------------------------------------
 
+        public static void ApplyTagRecursively(this Transform root, string tag)
+        {
+            root.gameObject.tag = tag;
+            foreach (Transform child in root)
+                ApplyTagRecursively(child, tag);
+        }
+
+        public static void ApplyTagRecursively(this GameObject root, string tag)
+        {
+            root.gameObject.tag = tag;
+            foreach (Transform child in root.transform)
+                ApplyTagRecursively(child, tag);
+        }
+
+        //------------------------------------------------------------------------------------------------------------------
+
         public static Vector4 CalcBoundingSphere(this Component cmp)
         {
             return CalcBoundingSphere(cmp.gameObject);
@@ -265,6 +356,11 @@ namespace Smart.Extensions
         public static Bounds? CalcBounds(this GameObject go, bool byColliders, string ignoreTag = null)
         {
             return CalcBounds(go.transform, byColliders, ignoreTag);
+        }
+
+        public static Bounds? CalcBounds(this Component cmp, bool byColliders, string ignoreTag = null)
+        {
+            return CalcBounds(cmp.transform, byColliders, ignoreTag);
         }
 
         public static Bounds? CalcBounds(this Transform tr, bool byColliders, string ignoreTag = null)

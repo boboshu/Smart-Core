@@ -2,7 +2,9 @@
 using System.IO;
 using Smart.Editors;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Smart.Toolbars
 {
@@ -50,16 +52,21 @@ namespace Smart.Toolbars
                     break;
 
                 case SystemKind.SaveScene:
-                    if (EditorApplication.SaveScene())
+                    if (EditorSceneManager.SaveOpenScenes())
                         Debug.Log("Scene saved [" + DateTime.Now.ToString("HH:mm:ss") + "]");
                     break;
 
                 case SystemKind.SaveBackup:
-                    if (string.IsNullOrEmpty(EditorApplication.currentScene)) return;
-                    var bkp = EditorApplication.currentScene;
-                    bkp = bkp.Replace(Path.GetExtension(bkp), " " + DateTime.Now.ToString("MM-dd HH-mm-ss") + ".unity");
-                    EditorApplication.SaveScene(bkp, true);
-                    Debug.Log("Backup [" + bkp + "]");
+                    if (SceneManager.sceneCount <= 0) return;
+
+                    for (var i = 0; i < SceneManager.sceneCount; i++)
+                    {
+                        var scene = SceneManager.GetSceneAt(i);
+                        var bkpName = scene.path.Replace(".unity", " " + DateTime.Now.ToString("MM-dd HH-mm-ss") + ".unity");
+                        EditorSceneManager.SaveScene(scene, bkpName, true);
+                        Debug.Log("Backup [" + bkpName + "]");
+                    }
+
                     break;
             }
         }

@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{50219219-C24C-4E97-AB01-1584CE9FFEB4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Smart</RootNamespace>
+    <AssemblyName>SmartExtensionsEditor</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="UnityEditor">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>C:\Program Files\Unity\Editor\Data\UnityExtensions\Unity\Networking\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>C:\Program Files\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="eInitialize.cs" />
+    <Compile Include="Extensions\eAABBGizmo.cs" />
+    <Compile Include="Extensions\eAcnhorsAroundObject.cs" />
+    <Compile Include="Extensions\eBuiltInIcons.cs" />
+    <Compile Include="Extensions\eCustomEventDrawer.cs" />
+    <Compile Include="Extensions\eDependencies.cs" />
+    <Compile Include="Extensions\eExtraCommands.cs" />
+    <Compile Include="Extensions\eFullscreen.cs" />
+    <Compile Include="Extensions\eHierarchy.cs" />
+    <Compile Include="Extensions\eReplaceGameObjects.cs" />
+    <Compile Include="Extensions\eScenesDialog.cs" />
+    <Compile Include="Extensions\eSceneViews.cs" />
+    <Compile Include="Extensions\eSettings.cs" />
+    <Compile Include="Extensions\eShortcutsDialog.cs" />
+    <Compile Include="Extensions\eSettingsDialog.cs" />
+    <Compile Include="Extensions\eTransform.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Toolbars\eCommand Base.cs" />
+    <Compile Include="Toolbars\eCommand Editor.cs" />
+    <Compile Include="Toolbars\eCommand Static.cs" />
+    <Compile Include="Toolbars\eToolbars Colored.cs" />
+    <Compile Include="Toolbars\eToolbars Main.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartCoreEditor\SmartCoreEditor.csproj">
+      <Project>{92fa8192-b556-48f1-adb6-df95bc1ed759}</Project>
+      <Name>SmartCoreEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartCore\SmartCore.csproj">
+      <Project>{d9f500a7-0684-4d20-84a1-41535f291169}</Project>
+      <Name>SmartCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y "$(ProjectDir)$(OutDir)$(TargetFileName)" "$(ProjectDir)..\..\Smart\Extensions\Editor\"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -15,13 +15,9 @@ namespace Smart.Editors
                 if (tex) return tex;
                 _cache.Clear();
             }
-            tex = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
-
-            if (tex == null)
-            {
-                tex = (EditorGUIUtility.Load(path) ?? EditorGUIUtility.Load("icons/" + path + ".png")) as Texture2D;
-                if (tex == null && path != "icons/d_sceneviewfx.png") tex = Get("icons/d_sceneviewfx.png");
-            }
+            
+            tex = (EditorGUIUtility.Load(path) ?? EditorGUIUtility.Load("icons/" + path + ".png")) as Texture2D;
+            if (tex == null && path != "icons/d_sceneviewfx.png") tex = Get("icons/d_sceneviewfx.png");
 
             _cache.Add(path, tex);
             return tex;

@@ -30,21 +30,21 @@ namespace Smart.Types
 
         public ValueCache(float interval = 1)
         {
-            _getter = () => default(V);
+            _getter = () => default(V); // use default getter
             _interval = interval;
         }
 
         //--------------------------------------------------------------------------------------------------------------------------
 
-        public void OnGet(Func<V> getter)
+        public void Getter(Func<V> getter)
         {
             _getter = getter;
-            _nextUpdateTime = 0;
+            _nextUpdateTime = 0; // force getter call on next get
         }
 
         public void Clear()
         {
-            _nextUpdateTime = 0;
+            _nextUpdateTime = 0; // force getter call on next get
         }
 
         //--------------------------------------------------------------------------------------------------------------------------

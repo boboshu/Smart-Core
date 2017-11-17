@@ -13,6 +13,16 @@ namespace Smart.Extensions
             return new Color(color.r, color.g, color.b, newAlpha);
         }
 
+        public static Color MultiplyRGB(this Color color, float multiplier)
+        {
+            return new Color(color.r * multiplier, color.g * multiplier, color.b * multiplier, color.a);
+        }
+
+        public static Color MultiplyAlpha(this Color color, float multiplier)
+        {
+            return new Color(color.r, color.g, color.b, color.a * multiplier);
+        }
+
         //--------------------------------------------------------------------------------------------------------------------------
 
         public static Color InvertAndKeepAlpha(this Color value)

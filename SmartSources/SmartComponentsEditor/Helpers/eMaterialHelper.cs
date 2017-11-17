@@ -12,20 +12,24 @@ namespace Smart.Helpers
         protected override void DrawComponent()
         {
             eCustomEditors.DrawProperty(eGUI.redLt, serializedObject.FindProperty(nameof(_target.redirect)));
+            eCustomEditors.DrawProperty(eGUI.greenLt, serializedObject.FindProperty(nameof(_target.enumInChildren)));
 
             eCustomEditors.DrawProperty(_target.useSharedMaterials ? eGUI.limeLt : eGUI.redLt, serializedObject.FindProperty(nameof(_target.useSharedMaterials)));
             eCustomEditors.DrawProperty(_target.materialIndex == 0 ? eGUI.limeLt : eGUI.redLt, serializedObject.FindProperty(nameof(_target.materialIndex)));
 
             eCustomEditors.DrawProperty(eGUI.purpleLt, serializedObject.FindProperty(nameof(_target.propertyType)));
-            _target.WithMaterialEditor(DrawMaterial, DrawMaterialNotFound);
+
+            _materialNotFound = true;
+            _target.EnumInEditor(DrawMaterial);
+
+            if (_materialNotFound)
+            {
+                EditorGUILayout.HelpBox("Material not found", MessageType.Error);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_target.propertyName)));
+            }
         }
 
-        private void DrawMaterialNotFound()
-        {
-            EditorGUILayout.HelpBox("Material not found", MessageType.Error);
-            EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_target.propertyName)));
-        }
-
+        private bool _materialNotFound;
         private Shader _cachedShader;
         private ShaderPropertyInfo[] _cachedProperties;
 
@@ -37,6 +41,9 @@ namespace Smart.Helpers
 
         private void DrawMaterial(Material m)
         {
+            if (!_materialNotFound) return; // draw only first material
+
+            _materialNotFound = false;
             eGUI.LabelBold(m.name);
 
             var shader = m.shader;

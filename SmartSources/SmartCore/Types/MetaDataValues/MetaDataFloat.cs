@@ -3,9 +3,16 @@ using UnityEngine;
 
 namespace Smart.Types.MetaDataValues
 {
-    internal sealed class MetaDataFloat : MetaDataValue<float>
+    internal sealed class MetaDataFloat : MetaDataValue
     {
         //--------------------------------------------------------------------------------------------------------------------------
+
+        public float value;
+
+        public override byte GetTypeId()
+        {
+            return MetaData.ID_FLOAT;
+        }
 
         internal override void WriteData(BinaryWriter bw)
         {

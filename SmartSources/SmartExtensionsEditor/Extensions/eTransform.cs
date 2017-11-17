@@ -482,7 +482,7 @@ namespace Smart.Extensions
 
         private static Transform GetEmptyChild(GameObject go)
         {
-            return go.GetComponentsInChildren<Transform>().FirstOrDefault(tr => tr.GetTotalChildCount() + 1 == tr.GetComponentsInChildren<Component>().Length); // contains only transform components
+            return go.GetComponentsInChildren<Transform>(true).FirstOrDefault(tr => tr.GetTotalChildCount() + 1 == tr.GetComponentsInChildren<Component>(true).Length); // contains only transform components
         }
 
         //----------------------------------------------------------------------------------------------------------------------------------------

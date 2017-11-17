@@ -7,7 +7,7 @@ namespace Smart.Helpers
     [AddComponentMenu("Smart/Helpers/Interval Event Helper")]
     public class IntervalEventHelper : MonoBehaviour
     {
-        [Range(0.1f, 60)] public float interval = 1;
+        [Range(0, 60)] public float interval = 1;
         public UnityEvent onInterval = new UnityEvent();
 
         void OnEnable()
@@ -24,7 +24,6 @@ namespace Smart.Helpers
         {
             interval = newInterval;
             UpdateInterval();
-
         }
 
         public void UpdateInterval()

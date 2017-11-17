@@ -164,7 +164,12 @@ namespace Smart.Editors
             {
                 if (eGUI.ButtonMini("▼", "Move Down", eGUI.greenLt, 30)) ComponentUtility.MoveComponentDown(_target);
                 if (eGUI.ButtonMini("▲", "Move Up", eGUI.greenLt, 30)) ComponentUtility.MoveComponentUp(_target);
-                if (eGUI.ButtonMini("", eIcons.Get("Assets/Smart/Core/Editor/Icons/Tools/ClipboardPaste.png"), "Past New Component After This One", eGUI.greenLt, 30) && ComponentUtility.PasteComponentAsNew(_target.gameObject))
+
+                GUILayout.FlexibleSpace();
+
+                if (eGUI.ButtonMini("", eIcons.Get("icons/clipboard.png"), "Copy Component", eGUI.azureLt, 30)) ComponentUtility.CopyComponent(_target);
+                if (eGUI.ButtonMini("", eIcons.Get("icons/vcs_document.png"), "Paste Component", eGUI.azureLt, 30)) ComponentUtility.PasteComponentValues(_target);
+                if (eGUI.ButtonMini("", eIcons.Get("icons/vcs_document.png"), "Past New Component After This", eGUI.greenLt, 30) && ComponentUtility.PasteComponentAsNew(_target.gameObject))
                 {
                     var components = _target.GetComponents<Component>();
                     var newComponent = components.Last();
@@ -173,11 +178,6 @@ namespace Smart.Editors
                         ComponentUtility.MoveComponentUp(newComponent);
                 }
 
-                GUILayout.FlexibleSpace();
-
-                if (eGUI.ButtonMini("", eIcons.Get("Assets/Smart/Core/Editor/Icons/Tools/ClipboardCopy.png"), "Copy Component", eGUI.azureLt, 30)) ComponentUtility.CopyComponent(_target);
-                if (eGUI.ButtonMini("", eIcons.Get("Assets/Smart/Core/Editor/Icons/Tools/ClipboardPaste.png"), eGUI.azureLt, 30)) ComponentUtility.PasteComponentValues(_target);
-                
                 GUILayout.FlexibleSpace();
 
                 if (eGUI.ButtonMini("", eIcons.Get("icons/d_p4_deletedlocal.png"), "Remove Component", eGUI.crimsonLt, 30)) DestroyImmediate(_target);

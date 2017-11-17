@@ -54,7 +54,7 @@ namespace Smart.Extensions
                 eGUI.EmptySpace();
                 EditorGUILayout.BeginHorizontal();
                 {
-                    eGUI.LabelBold((_obj == null) ? "Drop object here" : "Dependencies source");
+                    eGUI.LabelBold(_obj == null ? "Drop object here" : "Dependencies source");
                     _obj = EditorGUILayout.ObjectField("", _obj, typeof(Object), true);
                     if (_obj != null && eGUI.Button("Clear", eGUI.redLt, 50)) _obj = null;
                 }

@@ -137,8 +137,8 @@ namespace Smart.Custom
                         property.stringValue = s;
                         property.serializedObject.ApplyModifiedProperties();
                     });
-                if (eGUI.ButtonMini("", eIcons.Get("Assets/UNIO/Editor/Icons/ClipboardCopy.png"), eGUI.azure, 32)) EditorGUIUtility.systemCopyBuffer = propertyValue;
-                if (eGUI.ButtonMini("", eIcons.Get("Assets/UNIO/Editor/Icons/ClipboardPaste.png"), eGUI.azure, 32)) property.stringValue = EditorGUIUtility.systemCopyBuffer;
+                if (eGUI.ButtonMini("", eIcons.Get("icons/clipboard.png"), eGUI.azure, 32)) EditorGUIUtility.systemCopyBuffer = propertyValue;
+                if (eGUI.ButtonMini("", eIcons.Get("icons/vcs_document.png"), eGUI.azure, 32)) property.stringValue = EditorGUIUtility.systemCopyBuffer;
             }
             GUILayout.EndHorizontal();
 
@@ -146,12 +146,12 @@ namespace Smart.Custom
             property.stringValue = (height == 0) ? EditorGUILayout.TextArea(propertyValue, stl) : EditorGUILayout.TextArea(propertyValue, stl, GUILayout.Height(height));
         }
 
-        public static void DrawProperty(Color color, SerializedProperty property, string title = null)
+        public static void DrawProperty(Color color, SerializedProperty property, string title = null, params GUILayoutOption[] options)
         {
             eGUI.BeginColors();
             eGUI.SetColor(color);
             if (title == null) EditorGUILayout.PropertyField(property); // use default
-            else EditorGUILayout.PropertyField(property, title == "" ? GUIContent.none : new GUIContent(title));
+            else EditorGUILayout.PropertyField(property, title == "" ? GUIContent.none : new GUIContent(title), options);
             eGUI.EndColors();
         }
     }

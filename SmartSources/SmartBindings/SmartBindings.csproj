@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3A6D5967-6BE6-4B90-8E82-F166AC517CD4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Smart</RootNamespace>
+    <AssemblyName>SmartBindings</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="UnityEngine">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>C:\Program Files\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bindings\BindingGeneric.cs" />
+    <Compile Include="Bindings\Binding.cs" />
+    <Compile Include="Bindings\Method\ObjectMethodBinding.cs" />
+    <Compile Include="Bindings\Method\IntegerMethodBinding.cs" />
+    <Compile Include="Bindings\Method\BooleanMethodBinding.cs" />
+    <Compile Include="Bindings\Method\FloatMethodBinding.cs" />
+    <Compile Include="Bindings\Method\TextMethodBinding.cs" />
+    <Compile Include="Bindings\Method\VoidMethodBinding.cs" />
+    <Compile Include="Bindings\MethodBinding.cs" />
+    <Compile Include="Bindings\CollectionBinding.cs" />
+    <Compile Include="Bindings\Values\FloatBinding.cs" />
+    <Compile Include="Bindings\Values\BooleanBinding.cs" />
+    <Compile Include="Bindings\Values\IntegerBinding.cs" />
+    <Compile Include="Bindings\Values\AudioBinding.cs" />
+    <Compile Include="Bindings\Values\ColorBinding.cs" />
+    <Compile Include="Bindings\Values\SpriteBinding.cs" />
+    <Compile Include="Managers\BindingsManager.cs" />
+    <Compile Include="Bindings\BindingRoot.cs" />
+    <Compile Include="Bindings\Values\TextBinding.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartCore\SmartCore.csproj">
+      <Project>{d9f500a7-0684-4d20-84a1-41535f291169}</Project>
+      <Name>SmartCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y "$(ProjectDir)$(OutDir)$(TargetFileName)" "$(ProjectDir)..\..\Smart\Bindings\"
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

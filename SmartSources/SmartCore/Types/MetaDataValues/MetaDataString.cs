@@ -4,9 +4,16 @@ using UnityEngine;
 
 namespace Smart.Types.MetaDataValues
 {
-    internal sealed class MetaDataString : MetaDataValue<string>
+    internal sealed class MetaDataString : MetaDataValue
     {
         //--------------------------------------------------------------------------------------------------------------------------
+
+        public string value;
+
+        public override byte GetTypeId()
+        {
+            return MetaData.ID_STRING;
+        }
 
         internal override void WriteData(BinaryWriter bw)
         {
@@ -22,14 +29,12 @@ namespace Smart.Types.MetaDataValues
 
         public override int AsInteger()
         {
-            int v;
-            return int.TryParse(value, out v) ? v : 0;
+            return int.TryParse(value, out var v) ? v : 0;
         }
 
         public override float AsFloat()
         {
-            float v;
-            return float.TryParse(value, out v) ? v : 0;
+            return float.TryParse(value, out var v) ? v : 0;
         }
 
         public override string AsString()
@@ -55,6 +60,13 @@ namespace Smart.Types.MetaDataValues
         public override bool AsBoolean()
         {
             return !string.IsNullOrEmpty(value);
+        }
+
+        //--------------------------------------------------------------------------------------------------------------------------
+
+        public override bool IsString()
+        {
+            return true;
         }
 
         //--------------------------------------------------------------------------------------------------------------------------

@@ -22,8 +22,8 @@ namespace Smart.Extensions
                 var parent_width = p.rect.width;
                 var parent_height = p.rect.height;
 
-                r.anchorMin = new Vector2(_anchorMin.x + (offsetMin.x / parent_width), _anchorMin.y + (offsetMin.y / parent_height));
-                r.anchorMax = new Vector2(_anchorMax.x + (offsetMax.x / parent_width), _anchorMax.y + (offsetMax.y / parent_height));
+                r.anchorMin = new Vector2(_anchorMin.x + offsetMin.x / parent_width, _anchorMin.y + offsetMin.y / parent_height);
+                r.anchorMax = new Vector2(_anchorMax.x + offsetMax.x / parent_width, _anchorMax.y + offsetMax.y / parent_height);
 
                 r.offsetMin = new Vector2(0, 0);
                 r.offsetMax = new Vector2(0, 0);

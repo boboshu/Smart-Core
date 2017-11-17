@@ -11,7 +11,8 @@ namespace Smart.Editors
         GotoRef = 8,
         DestroyRef = 16,
         VerticalTools = 32,
-        Delete_SingleLine_Reorder = Delete | SingleLine | Reorder
+        Delete_SingleLine = Delete | SingleLine,
+        Delete_SingleLine_Reorder = Delete | SingleLine | Reorder        
     }
 
     public static class eCollectionExtensions

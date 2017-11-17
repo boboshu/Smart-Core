@@ -20,6 +20,13 @@ namespace Smart.Helpers
 
         //--------------------------------------------------------------------------------------------------------------------------
 
+        public void SetDuration(float value)
+        {
+            duration = value;
+        }
+
+        //--------------------------------------------------------------------------------------------------------------------------
+
         public void SetCurrentColor(string value)
         {
             current = value.AsHexColor();
@@ -47,7 +54,8 @@ namespace Smart.Helpers
         public void Lerp()
         {
             if (_counter > 0) StopAllCoroutines();
-            StartCoroutine(DoLerp());
+            if (isActiveAndEnabled) StartCoroutine(DoLerp());
+            else current = target;
         }
 
         //--------------------------------------------------------------------------------------------------------------------------
@@ -56,14 +64,16 @@ namespace Smart.Helpers
         {
             current = value.AsHexColor();
             if (_counter > 0) StopAllCoroutines();
-            StartCoroutine(DoLerp());
+            if (isActiveAndEnabled) StartCoroutine(DoLerp());
+            else current = target;
         }
 
         public void LerpTo(string value)
         {
             target = value.AsHexColor();
             if (_counter > 0) StopAllCoroutines();
-            StartCoroutine(DoLerp());
+            if (isActiveAndEnabled) StartCoroutine(DoLerp());
+            else current = target;
         }
 
         //--------------------------------------------------------------------------------------------------------------------------
@@ -72,14 +82,16 @@ namespace Smart.Helpers
         {
             current = value;
             if (_counter > 0) StopAllCoroutines();
-            StartCoroutine(DoLerp());
+            if (isActiveAndEnabled) StartCoroutine(DoLerp());
+            else current = target;
         }
 
         public void LerpTo(Color value)
         {
             target = value;
             if (_counter > 0) StopAllCoroutines();
-            StartCoroutine(DoLerp());
+            if (isActiveAndEnabled) StartCoroutine(DoLerp());
+            else current = target;
         }
 
         //--------------------------------------------------------------------------------------------------------------------------

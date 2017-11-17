@@ -7,7 +7,7 @@ namespace Smart.Helpers
     {
         public GameObject template;
         public GameObject[] redirectCommandsTo = new GameObject[0];
-        public bool syncExistingComponents = true;
+        public bool syncExistingComponents = false;
 
         public enum Mode { InstantiateGameObject, CopyAllComponents, CopyEnabledComponents }
         public Mode mode;
@@ -68,7 +68,7 @@ namespace Smart.Helpers
             if (redirectCommandsTo.Length == 0) return;
 
             var cmdIndx = 0;
-            foreach (var redirectable in inst.GetComponentsInChildren<RedirectableHelper>())
+            foreach (var redirectable in inst.GetComponentsInChildren<RedirectableHelper>(true))
             {
                 redirectable.redirect = redirectCommandsTo[cmdIndx++];
                 cmdIndx %= redirectCommandsTo.Length;

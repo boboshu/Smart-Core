@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A354CB3E-4C86-47AA-B548-A8AAC8A4E136}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Smart</RootNamespace>
+    <AssemblyName>SmartBindingsEditor</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="UnityEditor">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>C:\Program Files\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bindings\eBindingRoot.cs" />
+    <Compile Include="Bindings\eBinding.cs" />
+    <Compile Include="Bindings\Methods\eObjectMethodBinding.cs" />
+    <Compile Include="Bindings\Methods\eIntegerMethodBinding.cs" />
+    <Compile Include="Bindings\Methods\eFloatMethodBinding.cs" />
+    <Compile Include="Bindings\Methods\eBooleanMethodBinding.cs" />
+    <Compile Include="Bindings\Methods\eTextMethodBinding.cs" />
+    <Compile Include="Bindings\Methods\eVoidMethodBinding.cs" />
+    <Compile Include="Bindings\Values\eFloatBinding.cs" />
+    <Compile Include="Bindings\Values\eBooleanBinding.cs" />
+    <Compile Include="Bindings\Values\eIntegerBinding.cs" />
+    <Compile Include="Bindings\eCollectionBinding.cs" />
+    <Compile Include="Bindings\Values\eAudioBinding.cs" />
+    <Compile Include="Bindings\Values\eColorBinding.cs" />
+    <Compile Include="Bindings\Values\eSpriteBinding.cs" />
+    <Compile Include="Bindings\Values\eTextBinding.cs" />
+    <Compile Include="Managers\eBindingsManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="eInitialize.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartBindings\SmartBindings.csproj">
+      <Project>{3a6d5967-6be6-4b90-8e82-f166ac517cd4}</Project>
+      <Name>SmartBindings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartCoreEditor\SmartCoreEditor.csproj">
+      <Project>{92fa8192-b556-48f1-adb6-df95bc1ed759}</Project>
+      <Name>SmartCoreEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartCore\SmartCore.csproj">
+      <Project>{d9f500a7-0684-4d20-84a1-41535f291169}</Project>
+      <Name>SmartCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y "$(ProjectDir)$(OutDir)$(TargetFileName)" "$(ProjectDir)..\..\Smart\Bindings\Editor\"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -150,6 +150,16 @@ namespace Smart.Helpers
             TargetGameObject.transform.rotation = transform.localRotation;
         }
 
+        public void GO_DestroyAllChildren()
+        {
+            TargetGameObject.DestroyChildren(false);
+        }
+
+        public void GO_DestroyAllChildrenImmediate()
+        {
+            TargetGameObject.DestroyChildren();
+        }
+
         //-------------------------------------------------------------------------------
 
         public void GO_RotateX(float angle)
@@ -165,6 +175,26 @@ namespace Smart.Helpers
         public void GO_RotateZ(float angle)
         {
             TargetGameObject.transform.Rotate(0, 0, angle);
+        }
+
+        //-------------------------------------------------------------------------------
+
+        public void GO_SetPositionX(float value)
+        {
+            var pos = TargetGameObject.transform.localPosition;
+            TargetGameObject.transform.localPosition = new Vector3(value, pos.y, pos.z);
+        }
+
+        public void GO_SetPositionY(float value)
+        {
+            var pos = TargetGameObject.transform.localPosition;
+            TargetGameObject.transform.localPosition = new Vector3(pos.x, value, pos.z);
+        }
+
+        public void GO_SetPositionZ(float value)
+        {
+            var pos = TargetGameObject.transform.localPosition;
+            TargetGameObject.transform.localPosition = new Vector3(pos.x, pos.y, value);
         }
 
         //-------------------------------------------------------------------------------
@@ -185,22 +215,74 @@ namespace Smart.Helpers
         }
 
         //-------------------------------------------------------------------------------
+
+        public void GO_SetScaleX(float value)
+        {
+            var scale = TargetGameObject.transform.localScale;
+            TargetGameObject.transform.localScale = new Vector3(value, scale.y, scale.z);
+        }
+
+        public void GO_SetScaleY(float value)
+        {
+            var scale = TargetGameObject.transform.localScale;
+            TargetGameObject.transform.localScale = new Vector3(scale.x, value, scale.z);
+        }
+
+        public void GO_SetScaleZ(float value)
+        {
+            var scale = TargetGameObject.transform.localScale;
+            TargetGameObject.transform.localScale = new Vector3(scale.x, scale.y, value);
+        }
+
+        //-------------------------------------------------------------------------------
+
+        public void GO_SetScaleXY(float value)
+        {
+            var scale = TargetGameObject.transform.localScale;
+            TargetGameObject.transform.localScale = new Vector3(value, value, scale.z);
+        }
+
+        public void GO_SetScaleXZ(float value)
+        {
+            var scale = TargetGameObject.transform.localScale;
+            TargetGameObject.transform.localScale = new Vector3(value, scale.y, value);
+        }
+
+        public void GO_SetScaleYZ(float value)
+        {
+            var scale = TargetGameObject.transform.localScale;
+            TargetGameObject.transform.localScale = new Vector3(scale.x, value, value);
+        }
+
+        public void GO_SetScaleXYZ(float value)
+        {
+            TargetGameObject.transform.localScale = new Vector3(value, value, value);
+        }
+
+        //-------------------------------------------------------------------------------
+
+        public void GO_SetNotActive(bool value)
+        {
+            TargetGameObject.SetActive(!value);
+        }
+
+        //-------------------------------------------------------------------------------
         // Animation
         //-------------------------------------------------------------------------------
 
         public void Anim_Stop()
         {
-            TargetGameObject.GetComponent<Animation>()?.Stop();
+            Enum<Animation>(a => a.Stop());
         }
 
         public void Anim_Play()
         {
-            TargetGameObject.GetComponent<Animation>()?.Play();
+            Enum<Animation>(a => a.Play());
         }
 
         public void Anim_Play(string animationName)
         {
-            TargetGameObject.GetComponent<Animation>()?.Play(animationName);
+            Enum<Animation>(a => a.Play(animationName));
         }
 
         //-------------------------------------------------------------------------------
@@ -209,7 +291,8 @@ namespace Smart.Helpers
 
         public void Sound_Play(AudioClip clip)
         {
-            TargetGameObject.GetOrAddComponent<AudioSource>().PlayOneShot(clip);
+
+            Enum<AudioSource>(a => a.PlayOneShot(clip));
         }
 
         //-------------------------------------------------------------------------------
@@ -227,15 +310,15 @@ namespace Smart.Helpers
 
         public void Lght_SetShadowType(int type)
         {
-            var cmp = TargetGameObject.GetComponent<Light>();
-            if (!cmp) return;
-
-            switch (type)
+            Enum<Light>(lght =>
             {
-                case 0: cmp.shadows = LightShadows.None; break;
-                case 1: cmp.shadows = LightShadows.Hard; break;
-                case 2: cmp.shadows = LightShadows.Soft; break;
-            }
+                switch (type)
+                {
+                    case 0: lght.shadows = LightShadows.None; break;
+                    case 1: lght.shadows = LightShadows.Hard; break;
+                    case 2: lght.shadows = LightShadows.Soft; break;
+                }
+            });
         }
 
         //-------------------------------------------------------------------------------
@@ -244,8 +327,7 @@ namespace Smart.Helpers
 
         public void Snd_SetRolloffModeLogarithmic(bool isLogarithmic)
         {
-            var cmp = TargetGameObject.GetComponent<AudioSource>();
-            if (cmp) cmp.rolloffMode = isLogarithmic ? AudioRolloffMode.Logarithmic : AudioRolloffMode.Linear;
+            Enum<AudioSource>(a => a.rolloffMode = isLogarithmic ? AudioRolloffMode.Logarithmic : AudioRolloffMode.Linear);
         }
 
         //-------------------------------------------------------------------------------
@@ -324,60 +406,25 @@ namespace Smart.Helpers
             MR_SetMaterial(5, material);
         }
 
+        public void MR_SetMaterial_6(Material material)
+        {
+            MR_SetMaterial(6, material);
+        }
+
+        public void MR_SetMaterial_7(Material material)
+        {
+            MR_SetMaterial(7, material);
+        }
+
         private void MR_SetMaterial(int index, Material material)
         {
-            var cmp = TargetGameObject.GetComponent<MeshRenderer>();
-            if (cmp == null) return;
-
-            var materials = cmp.materials;
-            if (index >= materials.Length) return;
-
-            materials[index] = material;
-            cmp.materials = materials;
-        }
-
-        //-------------------------------------------------------------------------------
-
-        public void MR_SetMaterial_InChilds_0(Material material)
-        {
-            MR_SetMaterial_InChilds(0, material);
-        }
-
-        public void MR_SetMaterial_InChilds_1(Material material)
-        {
-            MR_SetMaterial_InChilds(1, material);
-        }
-
-        public void MR_SetMaterial_InChilds_2(Material material)
-        {
-            MR_SetMaterial_InChilds(2, material);
-        }
-
-        public void MR_SetMaterial_InChilds_3(Material material)
-        {
-            MR_SetMaterial_InChilds(3, material);
-        }
-
-        public void MR_SetMaterial_InChilds_4(Material material)
-        {
-            MR_SetMaterial_InChilds(4, material);
-        }
-
-        public void MR_SetMaterial_InChilds_5(Material material)
-        {
-            MR_SetMaterial_InChilds(5, material);
-        }
-
-        private void MR_SetMaterial_InChilds(int index, Material material)
-        {
-            foreach (var cmp in TargetGameObject.GetComponentsInChildren<MeshRenderer>(true))
+            Enum<MeshRenderer>(mr =>
             {
-                var materials = cmp.materials;
-                if (index >= materials.Length) continue;
-
+                var materials = mr.materials;
+                if (index >= materials.Length) return;
                 materials[index] = material;
-                cmp.materials = materials;
-            }
+                mr.materials = materials;
+            });
         }
 
         //-------------------------------------------------------------------------------

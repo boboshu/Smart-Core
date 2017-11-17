@@ -44,7 +44,7 @@ namespace Smart.Extensions
                 if (go.transform.childCount > 0)
                 {
                     var chldCount = go.transform.GetTotalChildCount();
-                    var txt = (chldCount > 1000) ? (chldCount / 1000) + "k" : chldCount.ToString();
+                    var txt = chldCount > 1000 ? chldCount / 1000 + "k" : chldCount.ToString();
                     if (_countLabel == null) _countLabel = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight };
                     GUI.Label(new Rect(selectionRect.xMax - 16 - 32 - offset, selectionRect.y, 32f, 16f), txt, _countLabel);
                     textOffset = (int)GUI.skin.label.CalcSize(new GUIContent(txt)).x;
@@ -54,11 +54,10 @@ namespace Smart.Extensions
                 // Draw total polygons count
                 if (eSettings.HierarchyShowPolyCount)
                 {
-                    var mi = new MeshInfo(0, true);
-                    GetTotalMeshInfo(go.transform, ref mi);
+                    var mi = _getTransformMeshInfoCache[go.transform];
                     if (mi.trianglesCount > 0)
                     {
-                        var txt = (mi.trianglesCount > 1000000) ? (mi.trianglesCount / 1000000).ToString() + 'm' : ((mi.trianglesCount > 1000) ? (mi.trianglesCount / 1000).ToString() + 'k' : mi.trianglesCount.ToString());
+                        var txt = mi.trianglesCount > 1000000 ? (mi.trianglesCount / 1000000).ToString() + 'm' : (mi.trianglesCount > 1000 ? (mi.trianglesCount / 1000).ToString() + 'k' : mi.trianglesCount.ToString());
                         if (mi.dynamicBatching) txt = txt + '*';
                                                 
                         GUIStyle stl;
@@ -94,10 +93,10 @@ namespace Smart.Extensions
                 {
                     var layer = go.layer;
                     if (_layerLabel == null) _layerLabel = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleRight, clipping = TextClipping.Clip, fontSize = 6, normal = { textColor = eGUI.gray } };
-                    var txt = (layer > 0 && eSettings.HierarchyShowLayer) ? LayerMask.LayerToName(layer) : "";
+                    var txt = layer > 0 && eSettings.HierarchyShowLayer ? LayerMask.LayerToName(layer) : "";
                     try
                     {
-                        if (go.tag != "Untagged" && eSettings.HierarchyShowTag) txt = (txt == "") ? go.tag : txt + '\n' + go.tag;
+                        if (go.tag != "Untagged" && eSettings.HierarchyShowTag) txt = txt == "" ? go.tag : txt + '\n' + go.tag;
                     }
                     catch { }
                     if (txt != "")
@@ -158,6 +157,7 @@ namespace Smart.Extensions
             }
         }
 
+        private static readonly QueryCache<Transform, MeshInfo> _getTransformMeshInfoCache = new QueryCache<Transform, MeshInfo>(tr => { var mi = new MeshInfo(0, true); GetTotalMeshInfo(tr, ref mi); return mi; }, 5);
         private static readonly QueryCache<Mesh, MeshInfo> _getMeshInfoCache = new QueryCache<Mesh, MeshInfo>(m => new MeshInfo(m.triangles.Length / 3, m.vertexCount < 900), 10);
 
         private static void GetTotalMeshInfo(Transform tr, ref MeshInfo mi)

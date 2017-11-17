@@ -107,7 +107,7 @@ namespace Smart.Extensions
             _eventOwner = property.serializedObject.targetObject;
             _evnt = GetFieldValueByPath(_eventOwner, property.propertyPath.Replace(".Array.data[", "[")) as UnityEventBase;
             _property = property;
-            _runtimeCount = (int)_evnt.Reflection_FieldValue("m_Calls")?.Reflection_FieldValue("m_RuntimeCalls")?.Reflection_PropertyValue("Count");
+            _runtimeCount = (int)_evnt.Reflection_FieldGet("m_Calls")?.Reflection_FieldGet("m_RuntimeCalls")?.Reflection_PropertyGet("Count");
         }
 
         private static object GetFieldValueByPath(object obj, string path)
@@ -144,7 +144,7 @@ namespace Smart.Extensions
                 if (field.Name == name) return field.GetValue(inst);
 
             var baseType = type.BaseType;
-            return (baseType == null) ? null : GetFieldValue(inst, name, baseType);
+            return baseType == null ? null : GetFieldValue(inst, name, baseType);
         }
 
         //----------------------------------------------------------------------------------------------------------------------------------------
@@ -172,17 +172,17 @@ namespace Smart.Extensions
                 switch (_mode)
                 {
                     case Mode.Browse:
-                        if (GUI.Button(new Rect(r.xMin - 14, r.yMin + (i*43) + 25, 20, 33), eIcons.Get("icons/d_viewtoolzoom on.png"), stl))
+                        if (GUI.Button(new Rect(r.xMin - 14, r.yMin + i*43 + 25, 20, 33), eIcons.Get("icons/d_viewtoolzoom on.png"), stl))
                             eEventDialog.Execute(BuildHackedData(i), _evnt.GetPersistentTarget(i));
                         break;
 
                     case Mode.Reorder:
-                        if (i > 0 && GUI.Button(new Rect(r.xMin - 14, r.yMin + (i * 43) + 20, 20, 20), "▲", stl)) MoveUpHack(i);
-                        if (i < (pec - 1) && GUI.Button(new Rect(r.xMin - 14, r.yMin + (i * 43) + 40, 20, 20), "▼", stl)) MoveDownHack(i);
+                        if (i > 0 && GUI.Button(new Rect(r.xMin - 14, r.yMin + i * 43 + 20, 20, 20), "▲", stl)) MoveUpHack(i);
+                        if (i < pec - 1 && GUI.Button(new Rect(r.xMin - 14, r.yMin + i * 43 + 40, 20, 20), "▼", stl)) MoveDownHack(i);
                         break;
 
                     case Mode.Delete:
-                        if (GUI.Button(new Rect(r.xMin - 14, r.yMin + (i * 43) + 25, 20, 33), eIcons.Get("icons/d_winbtn_win_close.png"), stl))
+                        if (GUI.Button(new Rect(r.xMin - 14, r.yMin + i * 43 + 25, 20, 33), eIcons.Get("icons/d_winbtn_win_close.png"), stl))
                             UnityEventTools.RemovePersistentListener(_evnt, i);
                         break;
                 }

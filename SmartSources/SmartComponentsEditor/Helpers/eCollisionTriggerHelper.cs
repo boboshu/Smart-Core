@@ -1,4 +1,5 @@
-﻿using Smart.Editors;
+﻿using Smart.Custom;
+using Smart.Editors;
 using UnityEditor;
 
 namespace Smart.Helpers
@@ -8,7 +9,11 @@ namespace Smart.Helpers
     {
         protected override void DrawComponent()
         {
-            _target.requireTag = EditorGUILayout.TagField("Require Tag", _target.requireTag);
+            eCustomEditors.DrawProperty(eGUI.redLt, serializedObject.FindProperty(nameof(_target.requireGameObject)));
+            _target.requireTag = _target.requireGameObject == null ? EditorGUILayout.TagField("Require Tag", _target.requireTag) : "Untagged";
+
+            EditorGUILayout.Space();
+
             EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_target.onEnter)));
             EditorGUILayout.PropertyField(serializedObject.FindProperty(nameof(_target.onExit)));
         }

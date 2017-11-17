@@ -2,6 +2,7 @@
 using System.Linq;
 using Smart.Editors;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace Smart.Extensions
@@ -69,7 +70,8 @@ namespace Smart.Extensions
                         if (GUILayout.Button(sceneName, stl, GUILayout.ExpandWidth(true)))
                         {
                             Close();
-                            EditorApplication.OpenScene(scene);
+                            //EditorApplication.OpenScene(scene); fix unity 5.5 warn
+                            EditorSceneManager.OpenScene(scene);
                         }
                         if (inBuild) eGUI.EndColors();
                     }

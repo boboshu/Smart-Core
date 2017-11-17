@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace Smart.Utils
 {
@@ -9,12 +8,12 @@ namespace Smart.Utils
 
         public static long GetFileLength(string fileName)
         {
-            return new FileInfo(fileName).Length;
+            return File.Exists(fileName) ? new FileInfo(fileName).Length : 0;
         }
 
         public static string GetFileSize(string fileName)
         {
-            return GetMemSize(new FileInfo(fileName).Length);
+            return File.Exists(fileName) ? GetMemSize(new FileInfo(fileName).Length) : "";
         }
 
         public static string GetMemSize(long len)

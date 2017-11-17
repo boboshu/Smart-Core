@@ -3,9 +3,16 @@ using UnityEngine;
 
 namespace Smart.Types.MetaDataValues
 {
-    internal sealed class MetaDataBoolean : MetaDataValue<bool>
+    internal sealed class MetaDataBoolean : MetaDataValue
     {
         //--------------------------------------------------------------------------------------------------------------------------
+
+        public bool value;
+
+        public override byte GetTypeId()
+        {
+            return MetaData.ID_BOOLEAN;
+        }
 
         internal override void WriteData(BinaryWriter bw)
         {
